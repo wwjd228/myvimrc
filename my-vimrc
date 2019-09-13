@@ -1,0 +1,147 @@
+" vim common keys
+" https://stackoverflow.com/questions/5400806/what-are-the-most-used-vim-commands-keypresses
+
+"Key mapping
+inoremap ( ()<Esc>i
+inoremap " ""<Esc>i
+inoremap ' ''<Esc>i
+inoremap [ []<Esc>i
+inoremap {<CR> {<CR>}<Esc>ko
+inoremap {{ {}<ESC>i
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+
+" Enable folding with the spacebar
+nnoremap <space> za
+
+" Open and close all the three plugins on the same time
+nmap <F7>  :TrinityToggleAll<CR>
+"
+" " Open and close the Source Explorer separately
+nmap <F8>  :TrinityToggleSourceExplorer<CR>
+"
+" " Open and close the Taglist separately
+nmap <F9> :TrinityToggleTagList<CR>
+"
+" " Open and close the NERD Tree separately
+nmap <F10> :TrinityToggleNERDTree<CR>
+
+" taglist setting
+" reference to https://github.com/jez/vim-as-an-ide for my vimrc
+let Tlist_Show_One_File=0
+let Tlist_Exit_OnlyWindow=1
+let Tlist_Use_Left_Window=1
+let Tlist_File_Fold_Auto_Close=1
+
+"indent line setting
+:set listchars=tab:\|\ 
+:set list
+
+set tags=tags; "tree tags"
+
+"start vundle
+"====================================================================
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+"===============================================================
+" Write your plugins here
+"===============================================================
+Plugin 'Yggdroot/indentLine'
+Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'vim-airline/vim-airline'
+Plugin 'tpope/vim-fugitive'
+Plugin 'chazy/cscope_maps'
+Plugin 'vim-scripts/taglist.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'wesleyche/SrcExpl'
+Plugin 'wesleyche/Trinity'
+Plugin 'majutsushi/tagbar'
+Plugin 'zxqfl/tabnine-vim'
+
+"====================================================================
+" Run vundle
+"====================================================================
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+" --- end of Vundle ---
+
+" Spell check git commit messages and wrap text at column 72
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
+" --- General settings ---
+set nocompatible "vim 和 vi 不相容的模式
+set backspace=indent,eol,start " delete any value
+set ruler
+set showcmd "show state
+set ai "auto indent
+set background=dark
+set nu "line number
+set cursorline
+set hls "high light search
+set ic "search ignore character case
+set mouse=a
+set shiftwidth=4
+set incsearch
+
+syntax on
+filetype indent on
+
+hi cursorLineNr cterm=bold ctermfg=Green ctermbg=NONE
+
+" --- git
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
+" python PEP8
+"------------Start Python PEP 8 stuff----------------
+" reference: https://github.com/j1z0/vim-config/blob/master/vimrc
+" Number of spaces that a pre-existing tab is equal to.
+au BufRead,BufNewFile *py,*pyw,*.c,*.h set tabstop=4
+
+"spaces for indents
+au BufRead,BufNewFile *py,*pyw,*.c,*.h set shiftwidth=4
+au BufRead,BufNewFile *py,*pyw,*.c,*.h set expandtab
+au BufRead,BufNewFile *py,*pyw,*.c,*.h set softtabstop=4
+
+" make backspaces more powerful
+set backspace=indent,eol,start
+
+" Use UNIX (\n) line endings.
+au BufNewFile *.py,*.pyw,*.c,*.h set fileformat=unix
+"----------Stop python PEP 8 stuff--------------
+
+" JavaScript html css
+au BufNewFile,BufRead *.js,*.html,*.css set tabstop=2
+au BufNewFile,BufRead *.js,*.html,*.css set softtabstop=2
+au BufNewFile,BufRead *.js,*.html,*.css set shiftwidth=2
+au BufRead,BufNewFile *.js,*.html,*.css set expandtab
